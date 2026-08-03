@@ -50,3 +50,22 @@ if __name__ == "__main__":
         account.withdraw(1000)
     except ValueError as error:
         print("Error:", error)
+        
+        
+class SavingsAccount(BankAccount): 
+    def __init__(self, account_number, owner, balance=0, interest_rate=0):
+        super().__init__(account_number, owner, balance)
+        self.interest_rate = interest_rate
+        
+    def apply_interest(self):
+        interest = self.balance * (self.interest_rate / 100)
+        self.balance += interest
+        return self.balance
+    
+    def __str__(self):
+        return (
+            f"Account {self.account_number} - "
+            f"Owner: {self.owner}, "
+            f"Balance: ${self.balance:.2f}, "
+            f"Interest Rate: {self.interest_rate}%"
+        )
