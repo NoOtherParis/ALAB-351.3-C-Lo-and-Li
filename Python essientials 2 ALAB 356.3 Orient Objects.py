@@ -69,3 +69,18 @@ class SavingsAccount(BankAccount):
             f"Balance: ${self.balance:.2f}, "
             f"Interest Rate: {self.interest_rate}%"
         )
+        
+        from bank import SavingsAccount
+
+account = SavingsAccount("98765", "Paris", 1000, 5)
+
+print(account)
+
+account.deposit(500)
+print(account)
+
+account.withdraw(200)
+print(account)
+
+account.apply_interest()
+print(account)
