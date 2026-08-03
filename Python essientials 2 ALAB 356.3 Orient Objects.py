@@ -33,3 +33,20 @@ if __name__ == "__main__":
 
     account.withdraw(100)
     print(account)
+    
+    if __name__ == "__main__":
+
+    account = BankAccount("12345", "Paris", 500)
+
+    print(account)
+
+    account.deposit(200)
+    print(account)
+
+    account.withdraw(100)
+    print(account)
+
+    try:
+        account.withdraw(1000)
+    except ValueError as error:
+        print("Error:", error)
