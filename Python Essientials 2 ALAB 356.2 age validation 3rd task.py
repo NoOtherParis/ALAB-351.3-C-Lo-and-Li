@@ -5,9 +5,7 @@ def validate_age(age):
 
 try:
     age = int(input("Enter your age: "))
-
     validate_age(age)
-
     print("Age accepted.")
 
 except ValueError as error:
