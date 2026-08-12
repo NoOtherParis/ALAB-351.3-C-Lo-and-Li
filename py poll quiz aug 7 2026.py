@@ -1,1 +1,5 @@
-print(-11 // 4, -11 % 4)
+total = 0
+for i in range(10, 2, -3):
+    total += i
+    
+    print(total)
