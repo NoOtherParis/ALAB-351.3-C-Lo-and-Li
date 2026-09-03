@@ -23,12 +23,18 @@ while True:
         add_task(tasks, title, due_date)
 
     elif choice == "C":
-        index = int(input("Enter the task index to complete: "))
-        complete_task(tasks, index)
+        try:
+            index = int(input("Enter the task index to complete: "))
+            complete_task(tasks, index)
+        except ValueError:
+            print("Please enter a valid number.")
 
     elif choice == "D":
-        index = int(input("Enter the task index to delete: "))
-        delete_task(tasks, index)
+        try:
+            index = int(input("Enter the task index to delete: "))
+            delete_task(tasks, index)
+        except ValueError:
+            print("Please enter a valid number.")
 
     elif choice == "L":
         list_tasks(tasks)
