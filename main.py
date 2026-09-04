@@ -1,7 +1,7 @@
-from todolist import add_task, complete_task, delete_task, list_tasks
+from todolist import add_task, complete_task, delete_task, list_tasks, load_tasks, save_tasks
 
 
-tasks = []
+tasks = load_tasks()
 
 while True:
 
@@ -43,11 +43,7 @@ while True:
         save_choice = input("Would you like to save your task list? (Y/N): ").upper()
 
         if save_choice == "Y":
-            with open("tasks.txt", "w") as file:
-                for task in tasks:
-                    file.write(str(task) + "\n")
-
-            print("Task list saved to tasks.txt.")
+            save_tasks(tasks)
 
         print("Goodbye!")
         break

@@ -9,12 +9,4 @@ class Task:
         return f"[{status}] {self.title} (due {self.due_date})"
 
 
-# Test code
-task1 = Task("Submit assignment", "2025-03-10")
 
-print(task1)
-
-task2 = Task("Submit assignment", "2025-03-10", True)
-
-print(task2)
-# 

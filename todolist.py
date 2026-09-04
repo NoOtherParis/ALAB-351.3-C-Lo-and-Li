@@ -1,7 +1,9 @@
+import os
+import csv
 from datetime import datetime, date
 from task import Task
 
-
+TASK_FILE = "tasks.csv"
 def add_task(task_list, title, due_date=None):
     if due_date:
         try:
@@ -43,22 +45,67 @@ def list_tasks(task_list):
                 due += " - OVERDUE"
 
         print(index, f"[{status}] {task.title} - Due: {due}")
+        
+def load_tasks(filename=TASK_FILE):
+    task_list = []
+
+    if not os.path.exists(filename):
+        return task_list
+
+    try:
+        with open(filename, "r", newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                due_date = None
+
+                if row["due_date"]:
+                    due_date = datetime.strptime(
+                        row["due_date"], "%Y-%m-%d"
+                    ).date()
+
+                completed = row["completed"].lower() == "true"
+
+                task = Task(
+                    row["title"],
+                    due_date,
+                    completed
+                )
+
+                task_list.append(task)
+
+    except (OSError, KeyError, ValueError) as error:
+        print(f"Could not load tasks: {error}")
+
+    return task_list
+
+def save_tasks(task_list, filename=TASK_FILE):
+    try:
+        with open(filename, "w", newline="", encoding="utf-8") as file:
+            fieldnames = ["title", "due_date", "completed"]
+
+            writer = csv.DictWriter(
+                file,
+                fieldnames=fieldnames
+            )
+
+            writer.writeheader()
+
+            for task in task_list:
+                writer.writerow({
+                    "title": task.title,
+                    "due_date": (
+                        task.due_date.isoformat()
+                        if task.due_date
+                        else ""
+                    ),
+                    "completed": task.completed
+                })
+
+        print("Tasks saved successfully.")
+
+    except OSError as error:
+        print(f"Could not save tasks: {error}")
 
 
-# Test code
-tasks = []
 
-add_task(tasks, "Submit assignment", "2026-08-20")
-add_task(tasks, "Study Python", "2026-08-10")
-add_task(tasks, "Buy groceries")
-
-print("Initial Tasks:")
-list_tasks(tasks)
-
-print("\nCompleting Task 1:")
-complete_task(tasks, 1)
-list_tasks(tasks)
-
-print("\nDeleting Task 2:")
-delete_task(tasks, 2)
-list_tasks(tasks)
